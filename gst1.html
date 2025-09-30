@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GST Calculator</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #fff;
+        }
+        .calculator {
+            background-color: rgba(0,0,0,0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+            width: 350px;
+            text-align: center;
+        }
+        .calculator h2 {
+            margin-bottom: 30px;
+            color: #ffd700;
+        }
+        .calculator input, .calculator select {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+        .calculator button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff8c00;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #fff;
+            transition: 0.3s;
+        }
+        .calculator button:hover {
+            background-color: #ffa500;
+        }
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+        .result p {
+            margin: 10px 0;
+            font-size: 16px;
+        }
+        .result span {
+            color: #ffd700;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator">
+    <h2>GST Calculator</h2>
+    <input type="number" id="amount" placeholder="Enter Amount">
+    
+    <select id="gst">
+        <option value="0">Select GST %</option>
+        <option value="5">5%</option>
+        <option value="12">12%</option>
+        <option value="18">18%</option>
+        <option value="28">28%</option>
+    </select>
+    
+    <button id="calculate">Calculate</button>
+    
+    <div class="result" id="result" style="display:none;">
+        <p>Actual Amount: ₹<span id="actualAmount">0</span></p>
+        <p>GST Amount: ₹<span id="gstAmount">0</span></p>
+        <p>Total Amount: ₹<span id="totalAmount">0</span></p>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#calculate').click(function() {
+            let amount = parseFloat($('#amount').val());
+            let gstRate = parseFloat($('#gst').val());
+            
+            if (isNaN(amount) || gstRate === 0) {
+                alert("Please enter a valid amount and select GST %");
+                return;
+            }
+            
+            let gstAmount = (amount * gstRate) / 100;
+            let totalAmount = amount + gstAmount;
+            
+            $('#actualAmount').text(amount.toFixed(2));
+            $('#gstAmount').text(gstAmount.toFixed(2));
+            $('#totalAmount').text(totalAmount.toFixed(2));
+            
+            $('#result').fadeIn();
+        });
+    });
+</script>
+
+</body>
+</html>
